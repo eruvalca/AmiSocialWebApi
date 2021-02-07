@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AmiSocialWebApi.Data;
@@ -59,8 +60,7 @@ namespace AmiSocialWebApi
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedAccount = false;
-            }).AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>();
 
             services.AddAuthentication(auth =>
             {
