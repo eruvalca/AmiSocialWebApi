@@ -29,7 +29,7 @@ namespace AmiSocialWebApi.Controllers
             return member;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Member>> GetMember(int id)
         {
             var member = await _context.Members.FindAsync(id);
