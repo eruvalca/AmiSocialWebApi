@@ -28,5 +28,30 @@ namespace AmiSocialWebApi.Controllers
             var member = await _context.Members.Where(m => m.UserId == userId).FirstOrDefaultAsync();
             return member;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Member>> GetMember(int id)
+        {
+            var member = await _context.Members.FindAsync(id);
+
+            if (member is null)
+            {
+                return NotFound();
+            }
+
+            return member;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Member>> CreateMember(Member member)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            member.UserId = userId;
+
+            _context.Members.Add(member);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetMember", new { id = member.MemberId }, member);
+        }
     }
 }
