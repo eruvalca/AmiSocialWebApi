@@ -24,12 +24,12 @@ namespace AmiSocialWebApi
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
         private readonly IWebHostEnvironment _env;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            _configuration = configuration;
             _env = env;
         }
 
@@ -40,16 +40,16 @@ namespace AmiSocialWebApi
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration["DefaultConnection"]));
+                    options.UseSqlServer(_configuration["DefaultConnection"]));
 
-                symmetricKey = Configuration["SymmetricKey"];
+                symmetricKey = _configuration["SymmetricKey"];
             }
             else
             {
                 services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-                symmetricKey = Configuration.GetConnectionString("SymmetricKey");
+                symmetricKey = _configuration.GetConnectionString("SymmetricKey");
             }
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
