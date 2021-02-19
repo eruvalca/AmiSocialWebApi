@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AmiSocialWebApi.Models
+namespace AmiSocialWebApi.Models.ViewModels
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required]
         [StringLength(50)]
@@ -11,9 +11,5 @@ namespace AmiSocialWebApi.Models
         [Required]
         [StringLength(25, MinimumLength = 8)]
         public string Password { get; set; }
-        [Required]
-        [StringLength(25, MinimumLength = 8)]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
     }
 }

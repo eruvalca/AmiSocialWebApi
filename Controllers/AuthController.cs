@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AmiSocialWebApi.Models;
+using AmiSocialWebApi.Models.ViewModels;
 using AmiSocialWebApi.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

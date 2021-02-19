@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AmiSocialWebApi.Models
+namespace AmiSocialWebApi.Models.ViewModels
 {
     public class AuthResponse
     {

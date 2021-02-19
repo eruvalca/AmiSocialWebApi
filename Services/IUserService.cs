@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using AmiSocialWebApi.Models;
+using AmiSocialWebApi.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace AmiSocialWebApi.Services

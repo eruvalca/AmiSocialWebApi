@@ -25,7 +25,7 @@ namespace AmiSocialWebApi.Controllers
         public async Task<ActionResult<Member>> GetMemberByUser()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var member = await _context.Members.Where(m => m.UserId == userId).FirstOrDefaultAsync();
+            var member = await _context.Members.Where(m => m.User.Id == userId).FirstOrDefaultAsync();
             return member;
         }
 
@@ -46,7 +46,9 @@ namespace AmiSocialWebApi.Controllers
         public async Task<ActionResult<Member>> CreateMember(Member member)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            member.UserId = userId;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            member.User = user;
 
             _context.Members.Add(member);
             await _context.SaveChangesAsync();

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace AmiSocialWebApi.Models
 {
@@ -11,6 +12,6 @@ namespace AmiSocialWebApi.Models
         public string FamilyNickname { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
     }
 }
