@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AmiSocialWebApi.Models.ViewModels
@@ -17,5 +18,22 @@ namespace AmiSocialWebApi.Models.ViewModels
         [StringLength(25, MinimumLength = 8)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [StringLength(50)]
+        public string MiddleName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        [StringLength(50)]
+        public string FamilyNickname { get; set; }
+
+        [Required]
+        public DateTime DateOfBirth { get; set; }
     }
 }

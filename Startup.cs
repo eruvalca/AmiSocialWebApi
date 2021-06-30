@@ -91,7 +91,7 @@ namespace AmiSocialWebApi
             });
 
             services.AddSingleton<SymmetricKeyService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<UserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

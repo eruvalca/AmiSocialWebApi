@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AmiSocialWebApi.Data;
+using AmiSocialWebApi.Models;
 using AmiSocialWebApi.Models.ViewModels;
 using AmiSocialWebApi.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmiSocialWebApi.Controllers
 {
@@ -12,34 +16,53 @@ namespace AmiSocialWebApi.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
+        private readonly AppDbContext _context;
 
-        public AuthController(IUserService userService)
+        public AuthController(UserService userService, AppDbContext context)
         {
             _userService = userService;
+            _context = context;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<AuthResponse>> Register(RegisterViewModel model)
+        public async Task<ActionResult<AuthResponse>> Register(RegisterViewModel registerModel)
         {
             if (ModelState.IsValid)
             {
-                var registerResult = await _userService.RegisterUser(model);
+                var registerResult = await _userService.RegisterUser(registerModel);
 
                 if (registerResult.IsSuccess)
                 {
                     //try to log user in
                     var loginModel = new LoginViewModel
                     {
-                        Email = model.Email,
-                        Password = model.Password
+                        Email = registerModel.Email,
+                        Password = registerModel.Password
                     };
 
                     var loginResult = await _userService.LoginUser(loginModel);
 
                     if (loginResult.IsSuccess)
                     {
-                        //return token for login
+                        //create member
+                        var newMember = new Member
+                        {
+                            FirstName = registerModel.FirstName,
+                            MiddleName = registerModel.MiddleName,
+                            LastName = registerModel.LastName,
+                            FamilyNickname = registerModel.FamilyNickname,
+                            DateOfBirth = registerModel.DateOfBirth,
+                        };
+
+                        var user = await _userService.GetUser(loginModel.Email);
+
+                        newMember.User = user;
+
+                        await _context.Members.AddAsync(newMember);
+                        await _context.SaveChangesAsync();
+
+                        //return member and token for login
                         return Ok(loginResult);
                     }
                     else

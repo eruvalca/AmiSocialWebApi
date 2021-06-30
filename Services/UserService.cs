@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace AmiSocialWebApi.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -80,7 +80,8 @@ namespace AmiSocialWebApi.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, model.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
 
             var symmetricKey = _symmetricKeyService.GetSymmetricKey();
@@ -100,6 +101,11 @@ namespace AmiSocialWebApi.Services
                 IsSuccess = true,
                 Token = tokenString
             };
+        }
+
+        public async Task<IdentityUser> GetUser(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
     }
 }
