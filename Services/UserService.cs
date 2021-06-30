@@ -87,7 +87,7 @@ namespace AmiSocialWebApi.Services
 
             var token = new JwtSecurityToken(
                 issuer: "https://localhost:5001/",
-                audience: "http://localhost:4200/",
+                audience: "http://localhost:44366/",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(3),
                 signingCredentials: new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256)

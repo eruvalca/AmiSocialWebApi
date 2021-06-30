@@ -73,7 +73,7 @@ namespace AmiSocialWebApi
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidIssuer = "https://localhost:5001/",
-                        ValidAudience = "http://localhost:4200/",
+                        ValidAudience = "http://localhost:44366/",
                         RequireExpirationTime = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricKey)),
                         ValidateIssuerSigningKey = true

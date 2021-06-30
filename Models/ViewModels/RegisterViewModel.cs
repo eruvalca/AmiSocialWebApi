@@ -8,9 +8,11 @@ namespace AmiSocialWebApi.Models.ViewModels
         [StringLength(50)]
         [EmailAddress]
         public string Email { get; set; }
+
         [Required]
         [StringLength(25, MinimumLength = 8)]
         public string Password { get; set; }
+
         [Required]
         [StringLength(25, MinimumLength = 8)]
         [Compare("Password")]
