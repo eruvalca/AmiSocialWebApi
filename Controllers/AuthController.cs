@@ -55,14 +55,14 @@ namespace AmiSocialWebApi.Controllers
                             DateOfBirth = registerModel.DateOfBirth,
                         };
 
+                        //get user for this member and add to member for relationship
                         var user = await _userService.GetUser(loginModel.Email);
-
                         newMember.User = user;
 
                         await _context.Members.AddAsync(newMember);
                         await _context.SaveChangesAsync();
 
-                        //return member and token for login
+                        //return token for login
                         return Ok(loginResult);
                     }
                     else
