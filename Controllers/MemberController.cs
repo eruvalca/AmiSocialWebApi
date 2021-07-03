@@ -54,5 +54,39 @@ namespace AmiSocialWebApi.Controllers
 
             return CreatedAtAction("GetMember", new { id = member.MemberId }, member);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Member>> UpdateMember(int id, Member member)
+        {
+            if (id != member.MemberId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(member).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MemberExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(member);
+        }
+
+        private bool MemberExists(int id)
+        {
+            return _context.Members.Any(e => e.MemberId == id);
+        }
     }
 }
