@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AmiSocialWebApi.Data;
+using AmiSocialWebApi.Models;
 using AmiSocialWebApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -52,7 +53,7 @@ namespace AmiSocialWebApi
                 symmetricKey = _configuration.GetValue<string>("SymmetricKey");
             }
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<AmiUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;

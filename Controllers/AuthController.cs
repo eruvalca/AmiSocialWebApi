@@ -17,12 +17,10 @@ namespace AmiSocialWebApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly AppDbContext _context;
 
-        public AuthController(UserService userService, AppDbContext context)
+        public AuthController(UserService userService)
         {
             _userService = userService;
-            _context = context;
         }
 
         [HttpPost("register")]
@@ -45,23 +43,6 @@ namespace AmiSocialWebApi.Controllers
 
                     if (loginResult.IsSuccess)
                     {
-                        //create member
-                        var newMember = new Member
-                        {
-                            FirstName = registerModel.FirstName,
-                            MiddleName = registerModel.MiddleName,
-                            LastName = registerModel.LastName,
-                            FamilyNickname = registerModel.FamilyNickname,
-                            DateOfBirth = registerModel.DateOfBirth,
-                        };
-
-                        //get user for this member and add to member for relationship
-                        var user = await _userService.GetUser(loginModel.Email);
-                        newMember.User = user;
-
-                        await _context.Members.AddAsync(newMember);
-                        await _context.SaveChangesAsync();
-
                         //return token for login
                         return Ok(loginResult);
                     }
@@ -115,6 +96,21 @@ namespace AmiSocialWebApi.Controllers
                             .Select(m => m.Value.Errors.ToString())
                             .ToList()
                 });
+            }
+        }
+
+        [HttpPut("updateUser")]
+        public async Task<ActionResult<AuthResponse>> UpdateUser(AmiUser user)
+        {
+            var response = await _userService.UpdateUser(user);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
             }
         }
     }

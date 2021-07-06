@@ -4,14 +4,12 @@ using AmiSocialWebApi.Models;
 
 namespace AmiSocialWebApi.Data
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<AmiUser>
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
 
         }
-
-        public DbSet<Member> Members { get; set; }
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {
