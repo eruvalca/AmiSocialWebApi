@@ -49,7 +49,7 @@ namespace AmiSocialWebApi
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-                symmetricKey = _configuration.GetConnectionString("SymmetricKey");
+                symmetricKey = _configuration.GetValue<string>("SymmetricKey");
             }
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
