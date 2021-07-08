@@ -55,9 +55,6 @@ namespace AmiSocialWebApi
 
             services.AddIdentity<AmiUser, IdentityRole>(options =>
             {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedAccount = false;
