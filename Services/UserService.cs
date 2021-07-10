@@ -103,7 +103,7 @@ namespace AmiSocialWebApi.Services
                 issuer: "https://localhost:5001/",
                 audience: "http://localhost:44366/",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(3),
+                expires: DateTime.Now.AddDays(3),
                 signingCredentials: new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256)
             );
 
