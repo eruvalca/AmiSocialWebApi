@@ -11,8 +11,14 @@ namespace AmiSocialWebApi.Data
 
         }
 
+        public DbSet<Post> Posts { get; set; }
+
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {
+        //     // modelBuilder.Entity<Post>()
+        //     //     .HasOne<AmiUser>()
+        //     //     .WithMany()
+        //     //     .HasForeignKey(p => p.AmiUserId);
         //     // modelBuilder.Entity<Competition>(c =>
         //     // {
         //     //     c.Property(c => c.PlayInAmount).HasColumnType("money");

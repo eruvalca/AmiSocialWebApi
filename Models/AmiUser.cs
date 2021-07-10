@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace AmiSocialWebApi.Models
@@ -10,5 +11,8 @@ namespace AmiSocialWebApi.Models
         public string LastName { get; set; }
         public string FamilyNickname { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string ProfilePictureUrl { get; set; }
+
+        public List<Post> Posts { get; set; }
     }
 }
