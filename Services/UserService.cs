@@ -38,7 +38,8 @@ namespace AmiSocialWebApi.Services
                 MiddleName = model.MiddleName,
                 LastName = model.LastName,
                 FamilyNickname = model.FamilyNickname,
-                DateOfBirth = model.DateOfBirth
+                DateOfBirth = model.DateOfBirth,
+                ProfilePictureUrl = model.ProfileImageUrl
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -94,7 +95,8 @@ namespace AmiSocialWebApi.Services
                 new Claim("MiddleName", user.MiddleName ?? ""),
                 new Claim(ClaimTypes.Surname, user.LastName),
                 new Claim("FamilyNickname", user.FamilyNickname ?? ""),
-                new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToShortDateString())
+                new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToShortDateString()),
+                new Claim("ProfilePicture", user.ProfilePictureUrl ?? "")
             };
 
             var symmetricKey = _symmetricKeyService.GetSymmetricKey();
@@ -130,6 +132,7 @@ namespace AmiSocialWebApi.Services
             amiUser.LastName = user.LastName;
             amiUser.FamilyNickname = user.FamilyNickname;
             amiUser.DateOfBirth = user.DateOfBirth;
+            amiUser.ProfilePictureUrl = user.ProfilePictureUrl;
 
             var result = await _userManager.UpdateAsync(amiUser);
 

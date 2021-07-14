@@ -35,5 +35,6 @@ namespace AmiSocialWebApi.Models.ViewModels
 
         [Required]
         public DateTime DateOfBirth { get; set; }
+        public string ProfileImageUrl { get; set; }
     }
 }
